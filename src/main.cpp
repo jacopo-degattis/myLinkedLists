@@ -4,6 +4,10 @@
 
 using namespace std;
 
+void printRandom(node* value) {
+  cout<<value->s->age<<"|";
+}
+
 int main() {
 
   student* s = new student;
@@ -55,6 +59,10 @@ int main() {
   cout<<"after deletion"<<endl;
   
   reversed->print();
+  
+  cout<<"\n=== callback ==="<<endl;
+  
+  reversed->forEach(printRandom);
   
   return 0;
 }

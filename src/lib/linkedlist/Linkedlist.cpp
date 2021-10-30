@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 // TODO: move utils function to utils.cpp
-// #include "../utils.cpp"
+#include "../utils.cpp"
 #include "linkedlist.h"
 
 // TODO: remove, just for testing purposes
@@ -26,6 +26,17 @@ void LinkedList::append(student* s) {
     new_node->next = NULL;
     temp->next = new_node;
     
+  }
+}
+
+// this parameter is an address to callback function that take one parameter of type node (current node)
+void LinkedList::forEach(void (*func)(node*)) {
+  // callback is a function
+  node* temp = head;
+  
+  while (temp != nullptr) {
+    func(temp);
+    temp = temp->next;
   }
 }
 
@@ -96,7 +107,6 @@ void LinkedList::remove(int index) {
         temp->next = next_node;
       }
     }
-
     
     counter++;
     temp = temp->next;
