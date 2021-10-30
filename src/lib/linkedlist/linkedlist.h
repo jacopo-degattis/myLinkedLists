@@ -21,6 +21,7 @@ class LinkedList {
     }
     int size();
     void print();
+    void remove(int);
     student* get(int);
     LinkedList* reverse();
     void append(student*);

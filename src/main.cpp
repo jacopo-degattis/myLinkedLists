@@ -47,6 +47,14 @@ int main() {
   cout<<"== reversed list == "<<endl;
   
   reversed->print();
+      
+  cout<<endl;
+      
+  reversed->remove(1);
+  
+  cout<<"after deletion"<<endl;
+  
+  reversed->print();
   
   return 0;
 }

@@ -76,6 +76,33 @@ void LinkedList::set(int index, student* s) {
   }
 }
 
+void LinkedList::remove(int index) {
+  int counter = 0;
+  node* temp = head;
+  
+  while (temp != nullptr) {
+
+    if (counter == index-1) {
+      
+      // check length
+      if (counter+1 == this->size()-1) {
+        // in this case i'm removing the last item of the list
+        delete temp->next;
+        temp->next = NULL;
+      } else if (counter+1 < this->size()-1) {
+        // in this case i'm removing an elment in the middle
+        node* next_node = temp->next->next;
+        delete temp->next;
+        temp->next = next_node;
+      }
+    }
+
+    
+    counter++;
+    temp = temp->next;
+  }
+}
+
 // or length ? or both ?
 int LinkedList::size() {
   node* temp = head;
