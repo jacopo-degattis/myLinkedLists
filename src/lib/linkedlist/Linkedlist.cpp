@@ -38,6 +38,7 @@ void LinkedList::forEach(void (*func)(node*)) {
     func(temp);
     temp = temp->next;
   }
+  
 }
 
 // Add to the top of the list
@@ -71,6 +72,18 @@ student* LinkedList::get(int index) {
   return NULL;
 }
 
+LinkedList* LinkedList::clone() {
+  node* temp = this->head;
+  LinkedList* cloned = new LinkedList;
+  
+  while (temp != nullptr) {
+    cloned->append(temp->s);
+    temp = temp->next;
+  }
+  
+  return cloned;
+}
+
 void LinkedList::set(int index, student* s) {
   int iter = 0;
   node* temp = this->head;
@@ -85,6 +98,20 @@ void LinkedList::set(int index, student* s) {
     temp = temp->next;
     iter++;
   }
+}
+
+// bool LinkedList::contains(node* item) {
+  
+//   // TODO: add direct return value from forEach
+//   this->forEach([item](node* value) {
+//     if (value == item) return true;
+//   });
+  
+//   return false;
+// }
+
+bool LinkedList::isEmpty() {
+  return this->size() == 0;
 }
 
 void LinkedList::remove(int index) {

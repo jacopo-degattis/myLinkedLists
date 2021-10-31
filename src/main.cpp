@@ -70,5 +70,15 @@ int main() {
     cout<<value->s->age<<"|";
   });
   
+  cout<<"\n=== cloned array list ==="<<endl;
+  
+  LinkedList* cloned = reversed->clone();
+  
+  cloned->print();
+  
+  cout<<"\n=== is list empty ==="<<endl;
+  
+  cout<<"empty = "<<cloned->isEmpty()<<endl;
+  
   return 0;
 }
