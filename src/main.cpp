@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <cassert>
 #include "lib/linkedlist/linkedlist.h"
 
 using namespace std;
@@ -9,74 +10,81 @@ void printRandom(node* value) {
 }
 
 int main() {
+  LinkedList* list = new LinkedList();
 
   student* s = new student;
-  s->first_name = "Jack";
-  s->last_name = "Test";
+  s->first_name = "Mario";
+  s->last_name = "Rossi";
   s->age = 21;
   
-  student* s1 = new student;
-  s1->first_name = "Mario";
-  s1->last_name = "Prova";
-  s1->age = 20;
-
-  student* s2 = new student;
-  s2->first_name = "Luigi";
-  s2->last_name = "Easy";
-  s2->age = 15;
-
-  LinkedList* list = new LinkedList();
   list->append(s);
-  list->prepend(s2);
+  assert(list->size() == 1);
+  
+  student* s1 = new student;
+  s1->first_name = "Luigi";
+  s1->last_name = "Verdi";
+  s1->age = 28;
+  
   list->append(s1);
+  assert(list->size() == 2);
+  
+  cout<<"* Original list\n"<<endl;
   list->print();
   
-  cout<<"=========="<<endl;
+  cout<<"\n* Node in pos 1 (before set): "<<list->get(1)->first_name<<endl;
+  assert(list->get(1) == s1);
   
-  cout<<"old get value "<<list->get(1)->first_name<<endl;
-
   student* new_student = new student;
-  new_student->first_name = "SOS";
-  new_student->last_name = "LOL";
-  new_student->age = 45;
+  new_student->first_name = "Giacomo";
+  new_student->last_name = "Leopardi";
+  new_student->age = 16;
 
   list->set(1, new_student);
   
-  cout<<"new get value "<<list->get(1)->first_name<<endl;
+  cout<<"* Node in pos 1 (after set): "<<list->get(1)->first_name<<endl;
   
-  cout<<"current arr size => "<<list->size()<<endl;
+  assert(list->size() == 2);
+  
+  cout<<"* Current list size => "<<list->size()<<endl;
   
   LinkedList* reversed = list->reverse();
   
-  cout<<"== reversed list == "<<endl;
+  cout<<"\n* Reversed list (bef. deletion)\n"<<endl;
+  
+  assert(reversed->get(0) == list->get(1));
+  assert(reversed->get(1) == list->get(0));
   
   reversed->print();
-      
-  cout<<endl;
-      
+            
   reversed->remove(1);
   
-  cout<<"after deletion"<<endl;
+  cout<<"\n* Reversed list (aft. deletion)\n"<<endl;
+  
+  assert(reversed->get(0) == new_student);
   
   reversed->print();
   
-  cout<<"\n=== callback ==="<<endl;
+  cout<<"\n* Age print with callback function\n"<<endl;
   
   reversed->forEach(printRandom);
+  cout<<endl;
   
-  cout<<"\n=== lambda callback ==="<<endl;
+  cout<<"\n=== Age print with callback lambda function\n"<<endl;
   
   reversed->forEach([](node* value) {
     cout<<value->s->age<<"|";
   });
+  cout<<endl;
   
-  cout<<"\n=== cloned array list ==="<<endl;
+  cout<<"\n* Cloned list"<<endl;
   
   LinkedList* cloned = reversed->clone();
   
+  assert(cloned->get(0) == new_student);
+  
   cloned->print();
   
-  cout<<"\n=== is list empty ==="<<endl;
+  cout<<"\n* Is list empty\n"<<endl;
   
   cout<<"empty = "<<cloned->isEmpty()<<endl;
   

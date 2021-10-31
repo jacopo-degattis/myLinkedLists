@@ -60,6 +60,10 @@ student* LinkedList::get(int index) {
   int iter = 0;
   node* temp = this->head;
   
+  if (index > this->size()-1) {
+    throw std::invalid_argument("index is greater than list length");
+  }
+  
   while (temp != nullptr) {
 
     if (iter == index)
@@ -118,25 +122,29 @@ void LinkedList::remove(int index) {
   int counter = 0;
   node* temp = head;
   
-  while (temp != nullptr) {
-
-    if (counter == index-1) {
-      
-      // check length
-      if (counter+1 == this->size()-1) {
-        // in this case i'm removing the last item of the list
-        delete temp->next;
-        temp->next = NULL;
-      } else if (counter+1 < this->size()-1) {
-        // in this case i'm removing an elment in the middle
-        node* next_node = temp->next->next;
-        delete temp->next;
-        temp->next = next_node;
+  if (this->size() == 1) {
+    delete temp;
+  } else {
+    while (temp != nullptr) {
+  
+      if (counter == index-1) {
+        
+        // check length
+        if (counter+1 == this->size()-1) {
+          // in this case i'm removing the last item of the list
+          delete temp->next;
+          temp->next = NULL;
+        } else if (counter+1 < this->size()-1) {
+          // in this case i'm removing an elment in the middle
+          node* next_node = temp->next->next;
+          delete temp->next;
+          temp->next = next_node;
+        }
       }
+      
+      counter++;
+      temp = temp->next;
     }
-    
-    counter++;
-    temp = temp->next;
   }
 }
 
@@ -172,7 +180,8 @@ void LinkedList::print() {
   node* temp = this->head;
 
   while (temp != nullptr) {
-    cout<<temp->s->first_name<<"_"<<temp->s->last_name<<"("<<temp->s->age<<")"<<endl;
+    cout<<"|"<<temp->s->first_name<<"_"<<temp->s->last_name<<"("<<temp->s->age<<")";
     temp = temp->next;
   }
+  cout<<"|"<<endl;
 }
