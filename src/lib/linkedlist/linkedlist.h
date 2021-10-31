@@ -1,4 +1,3 @@
-#include <functional>
 #include <stdlib.h>
 
 using namespace std;
@@ -34,7 +33,6 @@ using namespace std;
       void prepend(student*);
       void set(int, student*);
       void forEach(void (*func) (node*));
-      // void forEach(node*, function<void(node*)>);
   };
   
 #endif

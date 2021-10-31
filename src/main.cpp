@@ -64,5 +64,11 @@ int main() {
   
   reversed->forEach(printRandom);
   
+  cout<<"\n=== lambda callback ==="<<endl;
+  
+  reversed->forEach([](node* value) {
+    cout<<value->s->age<<"|";
+  });
+  
   return 0;
 }
