@@ -16,7 +16,8 @@ using namespace std;
   
   template <typename T>
   struct node {
-    T* s;
+    // T* s;
+    T s; // Removed * read line 32
     struct node<T>* next;
     bool operator == (const node<T>* list_node) const {
       return (
@@ -28,6 +29,12 @@ using namespace std;
     }
   };
   
+  // Removed * from get, append and preprend
+  // this way you can also add numbers directly from method
+  // without pasing through variable
+  
+  // include a way to also add pointer ? yes or no ?
+  
   template <class T>
   class LinkedList {
     private:
@@ -38,14 +45,14 @@ using namespace std;
       void print();
       bool isEmpty();
       void remove(int);
-      student* get(int);
+      T get(int);
       LinkedList<T>* clone();
       bool contains(T*);
       LinkedList<T>* reverse();
-      void append(student*);
-      void prepend(student*);
-      void set(int, student*);
-      void forEach(void (*func)(node<T>*));
+      void append(T);
+      void prepend(T);
+      void set(int, T);
+      void forEach(void (*func)(T));
   };
   
   template <class T>
@@ -55,7 +62,7 @@ using namespace std;
   
   template <class T> 
   // Add to the end of the list
-  void LinkedList<T>::append(student* s) {
+  void LinkedList<T>::append(T s) {
     if (this->head == NULL) {
       node<T>* temp = new node<T>;
       temp->s = s;
@@ -71,21 +78,20 @@ using namespace std;
       node<T>* new_node = new node<T>;
       new_node->s = s;
       new_node->next = NULL;
-      temp->next = new_node;
-      
+      temp->next = new_node; 
     }
   }
   
   template <class T>
   // this parameter is an address to callback function that take one parameter of type node (current node)
-  void LinkedList<T>::forEach(void (*func)(node<T>*)) {
+  void LinkedList<T>::forEach(void (*func)(T)) {
     // callback is a function
     // T result = NULL;
     node<T>* temp = head;
     
     while (temp != nullptr) {
       // result = func(temp);
-      func(temp);
+      func(temp->s);
       temp = temp->next;
     }
     
@@ -112,7 +118,7 @@ using namespace std;
   
   template <class T>
   // Add to the top of the list
-  void LinkedList<T>::prepend(student* s) {
+  void LinkedList<T>::prepend(T s) {
     if (this->head == NULL) {
       node<T>* temp = new node<T>;
       temp->s = s;
@@ -127,7 +133,7 @@ using namespace std;
   }
   
   template <class T>
-  student* LinkedList<T>::get(int index) {
+  T LinkedList<T>::get(int index) {
     int iter = 0;
     node<T>* temp = this->head;
     
@@ -161,7 +167,7 @@ using namespace std;
   }
   
   template <class T>
-  void LinkedList<T>::set(int index, student* s) {
+  void LinkedList<T>::set(int index, T s) {
     int iter = 0;
     node<T>* temp = this->head;
     
@@ -252,16 +258,31 @@ using namespace std;
     
     return reversed;
   }
-  
+
   template <class T>
   void LinkedList<T>::print() {
     node<T>* temp = this->head;
-  
+    
     while (temp != nullptr) {
-      cout<<"|"<<temp->s->first_name<<"_"<<temp->s->last_name<<"("<<temp->s->age<<")";
+      
+      cout<<"|"<<temp->s;
+      
       temp = temp->next;
     }
     cout<<"|"<<endl;
   }
+
+  // template <class T>
+  // TODO: this print is specific for struct
+  // TODO: how to adapt base on data type 
+  // void LinkedList<T>::print() {
+  //   node<T>* temp = this->head;
+  
+  //   while (temp != nullptr) {
+  //     cout<<"|"<<temp->s->first_name<<"_"<<temp->s->last_name<<"("<<temp->s->age<<")";
+  //     temp = temp->next;
+  //   }
+  //   cout<<"|"<<endl;
+  // }
   
 #endif
