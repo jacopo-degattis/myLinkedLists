@@ -7,21 +7,27 @@
 // TODO: remove, just for testing purposes
 using namespace std;
 
+template <typename T>
+LinkedList<T>::LinkedList() {
+  this->head = NULL;
+}
+
+template <class T> 
 // Add to the end of the list
-void LinkedList::append(student* s) {
+void LinkedList<T>::append(student* s) {
   if (this->head == NULL) {
-    node* temp = new node;
+    node<T>* temp = new node<T>;
     temp->s = s;
     temp->next = NULL;
     this->head = temp;
   } else {
-    node* temp = head;
+    node<T>* temp = head;
     
     while (temp->next != nullptr) {
       temp = temp->next;
     }
     
-    node* new_node = new node;
+    node<T>* new_node = new node<T>;
     new_node->s = s;
     new_node->next = NULL;
     temp->next = new_node;
@@ -29,36 +35,42 @@ void LinkedList::append(student* s) {
   }
 }
 
+template <class T>
 // this parameter is an address to callback function that take one parameter of type node (current node)
-void LinkedList::forEach(void (*func)(node*)) {
+void LinkedList<T>::forEach(void (*func)(node<T>*)) {
   // callback is a function
-  node* temp = head;
+  // T result = NULL;
+  node<T>* temp = head;
   
   while (temp != nullptr) {
+    // result = func(temp);
     func(temp);
     temp = temp->next;
   }
   
+  // return result;
 }
 
+template <class T>
 // Add to the top of the list
-void LinkedList::prepend(student* s) {
+void LinkedList<T>::prepend(student* s) {
   if (this->head == NULL) {
-    node* temp = new node;
+    node<T>* temp = new node<T>;
     temp->s = s;
     temp->next = NULL;
     this->head = temp;
   } else {
-    node* new_node = new node;
+    node<T>* new_node = new node<T>;
     new_node->s = s;
     new_node->next = head;
     head = new_node;
   }
 }
 
-student* LinkedList::get(int index) {
+template <class T>
+student* LinkedList<T>::get(int index) {
   int iter = 0;
-  node* temp = this->head;
+  node<T>* temp = this->head;
   
   if (index > this->size()-1) {
     throw std::invalid_argument("index is greater than list length");
@@ -76,8 +88,9 @@ student* LinkedList::get(int index) {
   return NULL;
 }
 
-LinkedList* LinkedList::clone() {
-  node* temp = this->head;
+template <class T>
+LinkedList<T>* LinkedList<T>::clone() {
+  node<T>* temp = this->head;
   LinkedList* cloned = new LinkedList;
   
   while (temp != nullptr) {
@@ -88,9 +101,10 @@ LinkedList* LinkedList::clone() {
   return cloned;
 }
 
-void LinkedList::set(int index, student* s) {
+template <class T>
+void LinkedList<T>::set(int index, student* s) {
   int iter = 0;
-  node* temp = this->head;
+  node<T>* temp = this->head;
   
   while (temp != nullptr) {
     
@@ -114,13 +128,15 @@ void LinkedList::set(int index, student* s) {
 //   return false;
 // }
 
-bool LinkedList::isEmpty() {
+template <class T>
+bool LinkedList<T>::isEmpty() {
   return this->size() == 0;
 }
 
-void LinkedList::remove(int index) {
+template <class T>
+void LinkedList<T>::remove(int index) {
   int counter = 0;
-  node* temp = head;
+  node<T>* temp = head;
   
   if (this->size() == 1) {
     delete temp;
@@ -136,7 +152,7 @@ void LinkedList::remove(int index) {
           temp->next = NULL;
         } else if (counter+1 < this->size()-1) {
           // in this case i'm removing an elment in the middle
-          node* next_node = temp->next->next;
+          node<T>* next_node = temp->next->next;
           delete temp->next;
           temp->next = next_node;
         }
@@ -148,9 +164,10 @@ void LinkedList::remove(int index) {
   }
 }
 
+template <class T>
 // or length ? or both ?
-int LinkedList::size() {
-  node* temp = head;
+int LinkedList<T>::size() {
+  node<T>* temp = head;
   int current_size = 0;
   
   while (temp != nullptr) {
@@ -161,11 +178,12 @@ int LinkedList::size() {
   return current_size;
 }
 
+template <class T>
 // TODO: return new LinkedLIst obj or apply edit on current object and void return ?
-LinkedList* LinkedList::reverse() {
+LinkedList<T>* LinkedList<T>::reverse() {
   // Reverse linked list
   
-  node* temp = head;
+  node<T>* temp = head;
   LinkedList* reversed = new LinkedList;
   
   while (temp != nullptr) {
@@ -176,8 +194,9 @@ LinkedList* LinkedList::reverse() {
   return reversed;
 }
 
-void LinkedList::print() {
-  node* temp = this->head;
+template <class T>
+void LinkedList<T>::print() {
+  node<T>* temp = this->head;
 
   while (temp != nullptr) {
     cout<<"|"<<temp->s->first_name<<"_"<<temp->s->last_name<<"("<<temp->s->age<<")";

@@ -5,12 +5,13 @@
 
 using namespace std;
 
-void printRandom(node* value) {
+template <typename T>
+void printRandom(node<T>* value) {
   cout<<value->s->age<<"|";
 }
 
 int main() {
-  LinkedList* list = new LinkedList();
+  LinkedList<student>* list = new LinkedList<student>();
 
   student* s = new student;
   s->first_name = "Mario";
@@ -47,7 +48,7 @@ int main() {
   
   cout<<"* Current list size => "<<list->size()<<endl;
   
-  LinkedList* reversed = list->reverse();
+  LinkedList<student>* reversed = list->reverse();
   
   cout<<"\n* Reversed list (bef. deletion)\n"<<endl;
   
@@ -71,14 +72,14 @@ int main() {
   
   cout<<"\n=== Age print with callback lambda function\n"<<endl;
   
-  reversed->forEach([](node* value) {
+  reversed->forEach([](node<student>* value) {
     cout<<value->s->age<<"|";
   });
   cout<<endl;
   
   cout<<"\n* Cloned list"<<endl;
   
-  LinkedList* cloned = reversed->clone();
+  LinkedList<student>* cloned = reversed->clone();
   
   assert(cloned->get(0) == new_student);
   
