@@ -28,7 +28,7 @@ using namespace std;
     }
   };
   
-  template <typename T>
+  template <class T>
   class LinkedList {
     private:
       node<T>* head;
@@ -40,15 +40,15 @@ using namespace std;
       void remove(int);
       student* get(int);
       LinkedList<T>* clone();
-      // bool contains(node*);
+      bool contains(T*);
       LinkedList<T>* reverse();
       void append(student*);
       void prepend(student*);
       void set(int, student*);
-      void forEach(void (*func) (node<T>*));
+      void forEach(void (*func)(node<T>*));
   };
   
-  template <typename T>
+  template <class T>
   LinkedList<T>::LinkedList() {
     this->head = NULL;
   }
@@ -90,6 +90,24 @@ using namespace std;
     }
     
     // return result;
+  }
+    
+  template <class T>
+  bool LinkedList<T>::contains(T* s) {
+    bool found = false;
+    node<T>* temp = this->head;
+    
+    while (temp != nullptr) {
+    
+      if (temp->s == s) {
+        found = true;
+        break;
+      }
+    
+      temp = temp->next;
+    }
+    
+    return found;
   }
   
   template <class T>

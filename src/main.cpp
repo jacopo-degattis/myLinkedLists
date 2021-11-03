@@ -89,5 +89,17 @@ int main() {
   
   cout<<"empty = "<<cloned->isEmpty()<<endl;
   
+  cout<<"* Contains method\n"<<endl;
+    
+  student* e_s = new student;
+  new_student->first_name = "Giacomo";
+  new_student->last_name = "Leopardi";
+  new_student->age = 16;
+  
+  // TODO: now contains returns true only if struct as same address of inputed one
+  // TODO: so if I have two identical struct but with different addresses
+  // such as 0x1 and 0x2 they will differ. (Anyway I can improve this ?)
+  cout<<"contains leopardi ? => "<<cloned->contains(e_s)<<endl;
+    
   return 0;
 }
