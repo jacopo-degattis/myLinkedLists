@@ -26,7 +26,7 @@ void remove(int index)
 Remove element in the specified position
 
 ```
-student* get(int index)
+T get(int index)
 ```
 Return element at index position
 
@@ -41,17 +41,17 @@ LinkedList* reverse()
 Reverse list and returns it
 
 ```
-void append(node* value)
+void append(node value)
 ```
 Add new element to the end of the list
 
 ```
-void preprend(node* value)
+void prepend(node value)
 ```
 Add new element on top of the list
 
 ```
-void set(int index, node* value)
+void set(int index, node value)
 ```
 Update element at 'index' position with 'value'
 
@@ -61,6 +61,10 @@ void forEach(void (*func) (node*))
 Iterate over each item of the list executing func as callback.
 The callback has to take a node* as parameter and can be a lambda or a function.
 
+```
+LinkedList slice(int start, int end)
+```
+Split array in sub-array from starting index (start) and ending index (end)
 
 ## Installation
 Refer to INSTALL.md
