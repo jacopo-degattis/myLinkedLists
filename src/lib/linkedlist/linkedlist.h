@@ -1,11 +1,11 @@
 #include <iostream>
 #include <stdlib.h>
+#include "../utils.cpp"
 
 using namespace std;
 
 #ifndef LINKEDLIST
 #define LINKEDLIST
-  #include "../utils.cpp"
 
   struct student {
     const char* first_name;
@@ -53,6 +53,7 @@ using namespace std;
       void prepend(T);
       void set(int, T);
       void forEach(void (*func)(T));
+      LinkedList<T> slice(int, int);
   };
   
   template <class T>
@@ -80,6 +81,25 @@ using namespace std;
       new_node->next = NULL;
       temp->next = new_node; 
     }
+  }
+
+  // Split array in sub-arrays
+  template <class T>
+  LinkedList<T> LinkedList<T>::slice(int start, int end) {
+    int counter = 0;
+    node<T>* temp = this->head;
+    LinkedList<T> sliced_list;
+
+    while (temp != nullptr) {
+      if (counter >= start && counter <= end) {
+        sliced_list.append(temp->s);
+      }
+      
+      temp = temp->next;
+      counter++;
+    }
+
+    return sliced_list;
   }
   
   template <class T>
@@ -150,7 +170,7 @@ using namespace std;
       iter++;
     }
     
-    return NULL;
+    return -1;
   }
   
   template <class T>
