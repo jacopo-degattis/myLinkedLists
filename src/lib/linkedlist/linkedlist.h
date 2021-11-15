@@ -54,6 +54,7 @@ using namespace std;
       void set(int, T);
       void forEach(void (*func)(T));
       LinkedList<T> slice(int, int);
+      void extend(LinkedList<T>); 
   };
   
   template <class T>
@@ -61,6 +62,15 @@ using namespace std;
     this->head = NULL;
   }
   
+  template <class T>
+  void LinkedList<T>::extend(LinkedList<T> extend_list) {
+
+    // improve ? -> maybe with forEach ?
+    for (int i = 0; i < extend_list.size(); i++) {
+      this->append(extend_list.get(i));
+    }
+  }
+
   template <class T> 
   // Add to the end of the list
   void LinkedList<T>::append(T s) {
