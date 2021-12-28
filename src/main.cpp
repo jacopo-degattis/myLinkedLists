@@ -1,92 +1,55 @@
 #include <iostream>
 #include <stdlib.h>
-#include <cassert>
 #include "lib/linkedlist/linkedlist.h"
 
 using namespace std;
 
-void printRandom(node* value) {
-  cout<<value->s->age<<"|";
-}
-
 int main() {
-  LinkedList* list = new LinkedList();
+  LinkedList<int> int_list;
 
-  student* s = new student;
-  s->first_name = "Mario";
-  s->last_name = "Rossi";
-  s->age = 21;
-  
-  list->append(s);
-  assert(list->size() == 1);
-  
-  student* s1 = new student;
-  s1->first_name = "Luigi";
-  s1->last_name = "Verdi";
-  s1->age = 28;
-  
-  list->append(s1);
-  assert(list->size() == 2);
-  
-  cout<<"* Original list\n"<<endl;
-  list->print();
-  
-  cout<<"\n* Node in pos 1 (before set): "<<list->get(1)->first_name<<endl;
-  assert(list->get(1) == s1);
-  
-  student* new_student = new student;
-  new_student->first_name = "Giacomo";
-  new_student->last_name = "Leopardi";
-  new_student->age = 16;
+  int_list.append(10);
+  int_list.append(1200);
+  int_list.append(50);
+  int_list.append(100);
+  int_list.append(200);
+  int_list.append(150);
 
-  list->set(1, new_student);
-  
-  cout<<"* Node in pos 1 (after set): "<<list->get(1)->first_name<<endl;
-  
-  assert(list->size() == 2);
-  
-  cout<<"* Current list size => "<<list->size()<<endl;
-  
-  LinkedList* reversed = list->reverse();
-  
-  cout<<"\n* Reversed list (bef. deletion)\n"<<endl;
-  
-  assert(reversed->get(0) == list->get(1));
-  assert(reversed->get(1) == list->get(0));
-  
-  reversed->print();
-            
-  reversed->remove(1);
-  
-  cout<<"\n* Reversed list (aft. deletion)\n"<<endl;
-  
-  assert(reversed->get(0) == new_student);
-  
-  reversed->print();
-  
-  cout<<"\n* Age print with callback function\n"<<endl;
-  
-  reversed->forEach(printRandom);
-  cout<<endl;
-  
-  cout<<"\n=== Age print with callback lambda function\n"<<endl;
-  
-  reversed->forEach([](node* value) {
-    cout<<value->s->age<<"|";
+  int_list.forEach([](int value) {
+    cout<<"value => "<<value<<endl;
   });
-  cout<<endl;
+
+  LinkedList<int> sliced_list = int_list.slice(1, 4);
+
+  cout<<"\n* Sliced array \n"<<endl;
+  sliced_list.forEach([](int value) {
+    cout<<"value => "<<value<<endl;
+  });
   
-  cout<<"\n* Cloned list"<<endl;
+  cout<<"\n* Extend method \n"<<endl;
   
-  LinkedList* cloned = reversed->clone();
+  // add constructor to support list = [1, 2, 3, 4, ...] or new List(1, 2, 3, 4, ...)
   
-  assert(cloned->get(0) == new_student);
+  LinkedList<int> original_list;
+  original_list.append(1);
+  original_list.append(2);
+  original_list.append(13);
   
-  cloned->print();
+  LinkedList<int> other_list;
+  other_list.append(14);
+  other_list.append(15);
+  other_list.append(26);
   
-  cout<<"\n* Is list empty\n"<<endl;
+  cout<<"\n* Original list\n"<<endl;
+  original_list.print();
   
-  cout<<"empty = "<<cloned->isEmpty()<<endl;
+  cout<<"\n* Exntend list\n"<<endl;
+  other_list.print();
   
+  original_list.extend(other_list);
+  
+  cout<<"\n* Original list after merge\n"<<endl;
+  
+  original_list.print();
+
   return 0;
 }

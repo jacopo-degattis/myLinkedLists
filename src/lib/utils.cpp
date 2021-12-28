@@ -1,4 +1,5 @@
-#include "linkedlist/linkedlist.h"
+// #include "linkedlist/linkedlist.h"
 
-void write_to_file(LinkedList* list) {
-}
+// template <class T>
+// void write_to_file(LinkedList<T>* list) {
+// }
